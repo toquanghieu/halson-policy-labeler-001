@@ -1,0 +1,11 @@
+# gitleaks (pre-commit and CI): the default rules, plus an allowlist for the fake keys that the
+# secret-store tests use as fixtures. Each fake value is listed by name, so a real key pasted
+# into a test is still caught.
+[extend]
+useDefault = true
+
+[allowlist]
+description = "Fake API keys used as test fixtures"
+regexes = [
+  '''^sk-(from-env-1234|typed-in-settings-9876|ant-secret-abcd|ant-rotated-wxyz|live-abcdefgh1234|ant-test)$''',
+]

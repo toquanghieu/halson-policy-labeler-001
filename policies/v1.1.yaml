@@ -1,0 +1,230 @@
+# Recruitment Fraud Policy — the system reads this at run time.
+# Nothing below is duplicated in code or prompts: section ids, their text, how
+# each one affects the label, and the edge-case guidance all come from here.
+#
+# effect:
+#   violating    -> a verified match makes the posting VIOLATING
+#   review_only  -> on its own, a verified match yields NEEDS_REVIEW;
+#                   combined with any other matched section the result is VIOLATING
+version: v1.1
+title: Recruitment Fraud Policy
+summary: >
+  A posting is labeled VIOLATING if it matches any section below. Otherwise it is
+  labeled ALLOWED. If the evidence is insufficient to decide, label it NEEDS_REVIEW.
+
+sections:
+  - id: "§1"
+    name: Advance fee / payment to apply
+    effect: violating
+    text: >
+      The applicant is asked to pay (training, equipment, background check,
+      "starter kit", visa processing) before or as a condition of being hired.
+
+  - id: "§2"
+    name: Personal / financial data harvesting
+    effect: violating
+    text: >
+      The posting asks for sensitive data (bank details, SSN/ID number, copies of
+      ID) at the application stage, or directs applicants to off-platform channels
+      (personal email, messaging apps) to "complete the application".
+
+  - id: "§3"
+    name: Money handling / reshipping
+    effect: violating
+    text: >
+      The role involves receiving and forwarding money, checks, gift cards, crypto
+      or packages on behalf of the employer ("payment processing agent",
+      "package inspector").
+
+  - id: "§4"
+    name: Unrealistic compensation
+    effect: violating
+    text: >
+      Pay is clearly disproportionate to the stated effort, skills or hours
+      (e.g. "$5,000/week, no experience, 2 hours a day").
+
+  - id: "§5"
+    name: Unverifiable employer
+    effect: review_only
+    text: >
+      The employer cannot be identified: no company profile, a generic or
+      inconsistent company description, or contact details that do not match the
+      stated company. On its own, §5 yields NEEDS_REVIEW, not VIOLATING, unless
+      combined with another section.
+
+# How matched sections combine: this many distinct matched sections make the posting VIOLATING,
+# whatever their effect (v1: "unless combined with another section"). null = only `violating` ones.
+combine_to_violating: 2
+
+edge_cases:
+  - Legitimate commission-only sales roles are ALLOWED if the compensation structure is stated plainly.
+  - Remote work alone is not a signal.
+  - Missing fields (no logo, no salary) are weak signals and must not be the sole basis for VIOLATING.
+
+# Worked examples (few-shot), picked by scripts/fewshot.py from Claude's verified findings on
+# development postings (never the eval set). Same sections and rules as v1.
+examples:
+- title: work from home
+  excerpt: '[title] work from home
+
+    [company_profile] (empty)
+
+    [description] …r with MCA—if you receive signups before the weekly company deadline, which falls on
+    Saturday at 12 a.m., Central time. To begin with MCA, all you need to do it pay for your own benefit
+    membership for the first and last month. You are NOT paying to work; you are paying for your benefits.
+    You would not want to receive a haircut from someone who…
+
+    [description] …submitted; MCA associates also receive residual monthly income from the members and
+    associates they personally sign up. Sign up just two individuals per day—as either members or associates—and
+    generate a $1,120.00 per week income. Receive a weekly paper check (delivered by UPS) or have your
+    check direct deposited into your own bank account. You ca…
+
+    [benefits] …r rental companies and major hotels • Discounts from 15% to 60% at major providers of
+    vision, dental and prescription *MCA may offer additional benefits as the program features and benefits
+    are enhanced. *Benefit coverage options may differ by State*'
+  findings:
+  - section: §1
+    quotes:
+    - To begin with MCA, all you need to do it pay for your own benefit membership for the first and last
+      month
+    - You are NOT paying to work; you are paying for your benefits
+    facts: []
+    explanation: The applicant must pay a membership fee before starting, and the requirements list "$40
+      to start".
+  - section: §4
+    quotes:
+    - Sign up just two individuals per day—as either members or associates—and generate a $1,120.00 per
+      week income
+    facts: []
+    explanation: The posting promises about $1,120 per week from signing up two people a day, with no
+      experience or stated skills required.
+  - section: §5
+    quotes:
+    - MCA may offer additional benefits as the program features and benefits are enhanced
+    facts:
+    - no_company_profile
+    explanation: No company profile exists, and the posting identifies the employer only as generic "MCA"
+      with no verifiable details.
+  label: VIOLATING
+  note: The posting requires an upfront membership payment ("$40 to start") as a condition of work (§1),
+    promises implausible income for minimal effort (§4), and has no company profile with only a generic
+    "MCA" employer identity (§5). §1 and §4 alone make it VIOLATING.
+- title: Payroll Data Entry Clerk Position - Earn $100-$200 Daily
+  excerpt: "[title]  Payroll Data Entry Clerk Position - Earn $100-$200 Daily \n[company_profile] (empty)\n\
+    [benefits] This position is high paying and you will be paid WEEKLY via direct deposit, check, or\
+    \ company provided debit card. Candidate will be paid $50-$70 Per hour commensurate with experience\
+    \ and education. APPLY NOW AT #EMAIL_c9b5d8a60f3d80be13dd02ffe5d212c047b92ba679c296dfae7c102952fbb534#\
+    \ AND GET STARTED TODAY!\n[requirements] …o work in the typing and data entry fieldThe preferred applicants\
+    \ should be at least 18 years old with Internet access. Little experience is needed.Minimum Qualifications:•\
+    \ High School diploma or GED.• 1 year of clerical/data entry experience…\n[requirements] We are seeking\
+    \ only honest, self-motivated people with a desire to work in the typing and data entry fieldThe preferred\
+    \ applicants should be at least 18 years old with Internet access. Little experience is needed.Minimum\
+    \ Quali…"
+  findings:
+  - section: §4
+    quotes:
+    - Candidate will be paid $50-$70 Per hour commensurate with experience and education
+    - Little experience is needed
+    facts: []
+    explanation: Entry-level data entry work requiring only a high school diploma and little experience
+      is advertised at $50-$70 per hour, which is clearly disproportionate to the stated skills and effort.
+  - section: §2
+    quotes:
+    - APPLY NOW AT #EMAIL_c9b5d8a60f3d80be13dd02ffe5d212c047b92ba679c296dfae7c102952fbb534# AND GET STARTED
+      TODAY!
+    facts: []
+    explanation: The application is directed to an email address in the posting body rather than through
+      the platform.
+  - section: §5
+    quotes:
+    - We are seeking only honest, self-motivated people with a desire to work in the typing and data entry
+      field
+    facts:
+    - no_company_profile
+    explanation: No company profile exists and the posting never names the employer.
+  label: VIOLATING
+  note: Section 4 (implausible $50-$70/hour pay for entry-level data entry) and section 2 (applying via
+    an email address in the posting) both match, and section 5 (unidentifiable employer, no company profile)
+    also matches. Section 4 and section 2 are each independently sufficient for VIOLATING.
+- title: Webcam Model
+  excerpt: '[title] Webcam Model
+
+    [company_profile] (empty)
+
+    [requirements] …the age of 18 with a private place to work. - Be friendly, open minded, and feel comfortable
+    in front of the camera. - Have a scanned image of a valid Driver''s License, Passport, or other legal
+    proof of age. - Have a computer with a P4 dual core or higher processor, and at least 1GB of RAM.
+    - Have a high speed broadband Inte…
+
+    [benefits] …or more $2,600 or more We never charge our models any fees, and do not ask for your credit
+    card number at any time. All personal identity information you submit is kept strictly confidential.
+
+    [description] Internet Modeling is a premier adult modeling agency recruiting and hiring webcam models
+    for high paying webcam jobs.We are one of the oldest and most experienced online modeling agencies,
+    representing webcam…
+
+    [benefits] …o you receive the amount you earn. - Year end 1099 earnings statements for U.S. based
+    models (issued and sent by us). - Private delivery address for gifts sent by clients (received and
+    forwarded by us). - Anonymous email address to give out to clients for private messages. - Separate
+    #URL_754e3a19fe90ffc5b0d770dae56b220…'
+  findings:
+  - section: §2
+    quotes:
+    - Have a scanned image of a valid Driver's License, Passport, or other legal proof of age
+    - All personal identity information you submit is kept strictly confidential
+    facts: []
+    explanation: The posting requires a scanned copy of a driver's license, passport, or other ID as a
+      requirement to be considered, which is copies of ID collected at the application stage.
+  - section: §5
+    quotes:
+    - Internet Modeling is a premier adult modeling agency recruiting and hiring webcam models
+    facts:
+    - no_company_profile
+    explanation: The company profile is empty and there is no logo, so the employer cannot be independently
+      verified beyond a self-description with generic claims.
+  - section: §3
+    quotes:
+    - Private delivery address for gifts sent by clients (received and forwarded by us)
+    facts: []
+    explanation: The employer offers to receive and forward packages (client gifts) on the model's behalf,
+      a mild reshipping-style pattern under the package-handling clause of §3.
+  label: VIOLATING
+  note: Section 2 applies because the posting requires a scanned ID copy at application, and section 5
+    applies because there is no company profile. Combined, they make the posting VIOLATING; section 3
+    is a weaker secondary match on forwarding client gifts.
+- title: Optician
+  excerpt: '[title] Optician
+
+    [company_profile] (empty)
+
+    [description] Long term established and respected Optometric practice is seeking a full-time Optician
+    for our Eagan, Minnesota location. This is an excellent opportunity for someone who enjoys helping
+    people while earni…
+
+    [description] …837463b39bb6ba9bca8852#?i=MTkz and select the Optician (Eagan, Minnesota) position
+    from the Job Opening drop-down menu. We are an equal opportunity employer.'
+  findings:
+  - section: §5
+    quotes:
+    - Long term established and respected Optometric practice is seeking a full-time Optician
+    - We are an equal opportunity employer
+    facts:
+    - no_company_profile
+    explanation: The employer is never named.
+  label: NEEDS_REVIEW
+  note: 'Only §5 (unverifiable employer) applies, based on the unnamed employer and the empty company
+    profile, so the posting should be NEEDS_REVIEW. §1–§4 do not match: the posting requests no payment,
+    asks for no sensitive data off-platform, involves no money handling, and states no implausible pay.'
+- title: Customer Service Positions
+  excerpt: '[title] Customer Service Positions
+
+    [description] Under the direction of your team''s Marketing Manager, The Customer Service Rep must
+    respond to basic Customer Service inquiries and problem solve by providing information, setting up
+    appointments or directing requests to other professionals involved in the business.The Customer Service
+    Rep is expected to negotiate and provide alternatives and options during all customer interaction.
+    Possess and demonstrated ability t…'
+  findings: []
+  label: ALLOWED
+  note: No section applies. The employer is named and described in a full company profile, training is
+    paid instead of charged to applicants, pay is a plain base-plus-commission structure, and the posting
+    asks for no sensitive data or off-platform contact.

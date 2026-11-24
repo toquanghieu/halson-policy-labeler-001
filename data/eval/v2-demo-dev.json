@@ -1,0 +1,229 @@
+[
+  {
+    "job_id": "1408",
+    "gold": 1,
+    "title": "Data Entry Admin/Clerical Positions - Work From Home",
+    "v1": [
+      "NEEDS_REVIEW",
+      [
+        "§5"
+      ]
+    ],
+    "v2": [
+      "VIOLATING",
+      [
+        "§5",
+        "§6"
+      ]
+    ],
+    "s6_quotes": [
+      "Data Entry Admin/Clerical Positions - Work From Home",
+      "Input contract into contract databases",
+      "Fast and accurate typist"
+    ],
+    "v2_rationale": "Two review-only sections apply: §5 (no identifiable employer, no company profile) and §6 (generic work-from-home clerical data entry). No fee, data harvesting, money handling, or unrealistic pay signals appear, so the posting rests on §5 and §6 alone and should be NEEDS_REVIEW."
+  },
+  {
+    "job_id": "17573",
+    "gold": 1,
+    "title": "Home Based Typist (Full/Part Time)",
+    "v1": [
+      "VIOLATING",
+      [
+        "§2",
+        "§4",
+        "§5"
+      ]
+    ],
+    "v2": [
+      "VIOLATING",
+      [
+        "§2",
+        "§4",
+        "§5",
+        "§6"
+      ]
+    ],
+    "s6_quotes": [
+      "Our company is seeking candidates around the world to process typing job",
+      "Only 2 hours needed to spend per day at your home"
+    ],
+    "v2_rationale": "The posting matches §2 (applications routed to email outside the platform) and §4 (USD$1000-2000 per week for about 2 hours a day of basic typing). It also matches §5 (no identifiable employer) and §6 (generic home-based typing), which reinforce the VIOLATING label."
+  },
+  {
+    "job_id": "17584",
+    "gold": 1,
+    "title": "Online Typist From Home",
+    "v1": [
+      "NEEDS_REVIEW",
+      [
+        "§5"
+      ]
+    ],
+    "v2": [
+      "VIOLATING",
+      [
+        "§5",
+        "§6"
+      ]
+    ],
+    "s6_quotes": [
+      "by performing online data entry work, and other types of work from home duties",
+      "Must be able to work from home"
+    ],
+    "v2_rationale": "Sections §5 (unidentified employer, empty company profile) and §6 (generic home-based data-entry work) match, but both are review-only and no other section matches, so the posting resolves to NEEDS_REVIEW. No fee, data harvesting, money handling, or unrealistic pay ($30k–$35k entry-level) is present."
+  },
+  {
+    "job_id": "17657",
+    "gold": 1,
+    "title": "Data Entry / Typist Work At Home",
+    "v1": [
+      "VIOLATING",
+      [
+        "§4",
+        "§5"
+      ]
+    ],
+    "v2": [
+      "VIOLATING",
+      [
+        "§4",
+        "§5",
+        "§6"
+      ]
+    ],
+    "s6_quotes": [
+      "Must be able to work from home",
+      "Telecommuting from home"
+    ],
+    "v2_rationale": "Sections §4 (disproportionate guaranteed pay for entry-level data entry), §5 (unidentifiable employer with no company profile) and §6 (vague work-from-home data entry) apply, and §5 and §6 are combined with §4, so the posting is VIOLATING."
+  },
+  {
+    "job_id": "17537",
+    "gold": 1,
+    "title": "Data Entry",
+    "v1": [
+      "NEEDS_REVIEW",
+      [
+        "§5"
+      ]
+    ],
+    "v2": [
+      "NEEDS_REVIEW",
+      [
+        "§5"
+      ]
+    ],
+    "s6_quotes": [],
+    "v2_rationale": "Only §5 applies: the employer is unnamed and there is no company profile, so the posting is NEEDS_REVIEW rather than VIOLATING. The office-based clerical role does not trigger §6, and no fee, data-harvesting, money-handling, or pay-disproportion signals are present."
+  },
+  {
+    "job_id": "17630",
+    "gold": 1,
+    "title": "Data Entry",
+    "v1": [
+      "NEEDS_REVIEW",
+      [
+        "§5"
+      ]
+    ],
+    "v2": [
+      "NEEDS_REVIEW",
+      [
+        "§5"
+      ]
+    ],
+    "s6_quotes": [],
+    "v2_rationale": "Only §5 (unverifiable employer) applies: the company profile is empty and the employer is never named or described. No fee, data-harvesting, money-handling, or unrealistic-pay signals appear, and §6 does not clearly match because the role is not stated as home-based and the description is not purely generic clerical work."
+  },
+  {
+    "job_id": "10081",
+    "gold": 0,
+    "title": "Administrative Assistant - Part-time (NW Georgia Center)",
+    "v1": [
+      "ALLOWED",
+      []
+    ],
+    "v2": [
+      "ALLOWED",
+      []
+    ],
+    "s6_quotes": [],
+    "v2_rationale": "No section applies: the posting names a specific employer and location, describes clinic-specific duties at an office-based outpatient center, asks for no fees or sensitive data, and \"handling payments\" refers to patient billing rather than forwarding money for the employer. The missing salary is only a weak signal and cannot support a match on its own."
+  },
+  {
+    "job_id": "10194",
+    "gold": 0,
+    "title": "Part Time Administrative Assistant",
+    "v1": [
+      "ALLOWED",
+      []
+    ],
+    "v2": [
+      "ALLOWED",
+      []
+    ],
+    "s6_quotes": [],
+    "v2_rationale": "No section matches: the posting names a real employer with a detailed profile, asks for no fees or sensitive data, involves no money handling, and offers $16/hour for entry-level part-time work that is not disproportionate. The duties are tied to a specific commercial real estate brokerage, and the role is not home-based (telecommuting: no), so §6 does not apply. The missing salary field is only a weak signal and cannot support a finding."
+  },
+  {
+    "job_id": "1045",
+    "gold": 0,
+    "title": "Data Entry",
+    "v1": [
+      "ALLOWED",
+      []
+    ],
+    "v2": [
+      "ALLOWED",
+      []
+    ],
+    "s6_quotes": [],
+    "v2_rationale": "No policy section matches: the posting names a specific employer with a company profile, a physical address, and duties tied to its lending business, and the only missing field (salary) is a weak signal that cannot support a match alone. Label should be ALLOWED."
+  },
+  {
+    "job_id": "10490",
+    "gold": 0,
+    "title": "Administrative Assistant - Commercial Real Estate",
+    "v1": [
+      "ALLOWED",
+      []
+    ],
+    "v2": [
+      "ALLOWED",
+      []
+    ],
+    "s6_quotes": [],
+    "v2_rationale": "No policy section matches: the posting names a real employer with a company profile, the role is an office-based administrative job tied to a specific commercial real estate team, it asks for no fees or sensitive data, involves no money handling, and the $35k–$40k salary is proportionate to the stated duties. The posting is ALLOWED."
+  },
+  {
+    "job_id": "10651",
+    "gold": 0,
+    "title": "Office Manager & Administrative Assistant",
+    "v1": [
+      "ALLOWED",
+      []
+    ],
+    "v2": [
+      "ALLOWED",
+      []
+    ],
+    "s6_quotes": [],
+    "v2_rationale": "No policy section matches: the posting names an identifiable employer with a described product and customers, asks for no fees or sensitive data, involves no money handling, and is an office-based role in San Francisco tied to specific business duties. The only gap is the missing salary, which is a weak signal and cannot alone support a match."
+  },
+  {
+    "job_id": "10856",
+    "gold": 0,
+    "title": "Customer Services Associate - Data Entry",
+    "v1": [
+      "ALLOWED",
+      []
+    ],
+    "v2": [
+      "ALLOWED",
+      []
+    ],
+    "s6_quotes": [],
+    "v2_rationale": "No policy section matches: the employer is named with a company profile, the role is an on-site data-entry job tied to specific insurance, legal and financial document work, and nothing asks for fees, sensitive data, money handling, or implausible pay. The only gaps are the empty salary and benefits fields, which are weak signals and cannot support a violation."
+  }
+]

@@ -1,0 +1,525 @@
+{
+  "tag": "slm",
+  "policy_version": "v1@slm",
+  "tier1": "slm-qwen2.5-1.5b-distilled",
+  "tier2": null,
+  "metrics": {
+    "n": 400,
+    "n_scored": 400,
+    "confusion": {
+      "VIOLATING": {
+        "fraud": 12,
+        "legit": 1
+      },
+      "NEEDS_REVIEW": {
+        "fraud": 56,
+        "legit": 70
+      },
+      "ALLOWED": {
+        "fraud": 32,
+        "legit": 229
+      }
+    },
+    "strict": {
+      "precision": 0.923,
+      "recall": 0.12,
+      "f1": 0.212,
+      "tp": 12,
+      "fp": 1,
+      "fn": 88
+    },
+    "flagged": {
+      "precision": 0.489,
+      "recall": 0.68,
+      "f1": 0.569,
+      "tp": 68,
+      "fp": 71,
+      "fn": 32
+    },
+    "review_rate": 0.315,
+    "sections": {
+      "§5": {
+        "fraud": 65,
+        "legit": 71
+      },
+      "§4": {
+        "fraud": 12,
+        "legit": 1
+      }
+    },
+    "tiers": {
+      "tier1": 398,
+      "failed": 2
+    },
+    "escalation_rate": 0.0,
+    "cost_per_1k_usd": 0.0,
+    "total_cost_usd": 0.0,
+    "latency_ms": {
+      "p50": 1571.5,
+      "p95": 3144.6,
+      "max": 4229.6
+    }
+  },
+  "router_only_baseline": {
+    "threshold": 0.5,
+    "strict": {
+      "precision": 0.823,
+      "recall": 0.93,
+      "f1": 0.873,
+      "tp": 93,
+      "fp": 20,
+      "fn": 7
+    },
+    "confusion": {
+      "VIOLATING": {
+        "fraud": 93,
+        "legit": 20
+      },
+      "NEEDS_REVIEW": {
+        "fraud": 0,
+        "legit": 0
+      },
+      "ALLOWED": {
+        "fraud": 7,
+        "legit": 280
+      }
+    }
+  },
+  "errors": [
+    {
+      "job_id": "662",
+      "gold": "fraud",
+      "label": "ALLOWED",
+      "sections": [],
+      "confidence": 0.93,
+      "rationale": "No section applies. This is a senior strategy role at a named staffing agency with a detailed company profile, a named, consistent set of benefits, and no fees, data requests, money handling or unrealistic pay. The only gap is the missing salary, which is a weak signal.",
+      "evidence": [],
+      "title": "Director of Strategy",
+      "has_company_profile": true,
+      "router_score": 0.8509,
+      "tier": "tier1"
+    },
+    {
+      "job_id": "1205",
+      "gold": "fraud",
+      "label": "ALLOWED",
+      "sections": [],
+      "confidence": 0.93,
+      "rationale": "No section applies. The employer is named and described in detail, the pay ($60k–$90k) is realistic for an entry-level role, and the posting asks for no fees, no sensitive data and no money handling.",
+      "evidence": [],
+      "title": "Health + Environmental Professional",
+      "has_company_profile": true,
+      "router_score": 0.9113,
+      "tier": "tier1"
+    },
+    {
+      "job_id": "2137",
+      "gold": "fraud",
+      "label": "ALLOWED",
+      "sections": [],
+      "confidence": 0.95,
+      "rationale": "No section applies. This is a detailed, realistic engineering posting from a named, well-described employer (Aker Solutions, Houston) with no fees, data requests, money handling or unrealistic pay. The only gaps are a missing salary and no screening questions.",
+      "evidence": [],
+      "title": "Electrical Technician III",
+      "has_company_profile": true,
+      "router_score": 0.9387,
+      "tier": "tier1"
+    },
+    {
+      "job_id": "2274",
+      "gold": "fraud",
+      "label": "ALLOWED",
+      "sections": [],
+      "confidence": 0.95,
+      "rationale": "No section applies. The employer is named and described, the pay ($30k–50k) fits an entry-level customer service job, and the posting asks for no fees, no sensitive data and no money handling.",
+      "evidence": [],
+      "title": "Customer Service Representative",
+      "has_company_profile": true,
+      "router_score": 0.8835,
+      "tier": "tier1"
+    },
+    {
+      "job_id": "2408",
+      "gold": "fraud",
+      "label": "ALLOWED",
+      "sections": [],
+      "confidence": 0.95,
+      "rationale": "No section applies. This is a senior product management director role posted by a named staffing agency with a detailed company profile, and it has no payment requests, data harvesting, money handling or unrealistic pay. The only gap is the missing salary, which is a weak signal.",
+      "evidence": [],
+      "title": "Director of Product Management",
+      "has_company_profile": true,
+      "router_score": 0.7509,
+      "tier": "tier1"
+    },
+    {
+      "job_id": "2751",
+      "gold": "fraud",
+      "label": "ALLOWED",
+      "sections": [],
+      "confidence": 0.95,
+      "rationale": "No section applies. This is an ordinary administrative assistant job at a named, well-described employer (AZCO INC, Menasha, WI) with a realistic salary of $20k–30k, and it doesn't ask for fees or sensitive data, and doesn't involve handling money or packages.",
+      "evidence": [],
+      "title": "Administrative Assistant",
+      "has_company_profile": true,
+      "router_score": 0.4159,
+      "tier": "tier1"
+    },
+    {
+      "job_id": "3612",
+      "gold": "fraud",
+      "label": "ALLOWED",
+      "sections": [],
+      "confidence": 0.85,
+      "rationale": "No section applies. This is a commission-only sales role from a named employer with a company profile, and pay is stated plainly (\"straight commission\"). $80–130k is plausible for someone with 3+ years of sales experience.",
+      "evidence": [],
+      "title": "Account Sales Managers $80-$130,000/yr",
+      "has_company_profile": true,
+      "router_score": 0.9069,
+      "tier": "tier1"
+    },
+    {
+      "job_id": "4669",
+      "gold": "fraud",
+      "label": "ALLOWED",
+      "sections": [],
+      "confidence": 0.95,
+      "rationale": "No section applies. This is a detailed, consistent HR director role posted by a named, well-described employer (Novation, VAHA, UHC, Provista), with a realistic salary of $50k–65k, a full-time director role, and a named-on-duty supervisor. There are no fees, no requests for sensitive data, no money handling and no unrealistic pay.",
+      "evidence": [],
+      "title": "Human Resource Director",
+      "has_company_profile": true,
+      "router_score": 0.7607,
+      "tier": "tier1"
+    },
+    {
+      "job_id": "5445",
+      "gold": "fraud",
+      "label": "ALLOWED",
+      "sections": [],
+      "confidence": 0.85,
+      "rationale": "No policy section matches: the posting asks for no fees, no sensitive data, no money handling, and the duties are ordinary executive chef work. The missing salary is only a weak signal and cannot support a finding on its own, so the posting is ALLOWED.",
+      "evidence": [],
+      "title": "Executive Chef",
+      "has_company_profile": true,
+      "router_score": 0.8875,
+      "tier": "tier1"
+    },
+    {
+      "job_id": "6173",
+      "gold": "fraud",
+      "label": "ALLOWED",
+      "sections": [],
+      "confidence": 0.93,
+      "rationale": "No section applies. This is a full-time entry-level shipping and distribution role from a named, described employer (Bradley Contracting Group, Cincinnati) with a company profile, and it has no fees, no requests for sensitive data, no money handling and no unrealistic pay. The only gap is the missing salary, which is a weak signal.",
+      "evidence": [],
+      "title": "Dispatcher",
+      "has_company_profile": true,
+      "router_score": 0.6062,
+      "tier": "tier1"
+    },
+    {
+      "job_id": "6501",
+      "gold": "fraud",
+      "label": "ALLOWED",
+      "sections": [],
+      "confidence": 0.93,
+      "rationale": "No section applies. The employer is named and described in a company profile, the pay ($40k–65k) fits an entry-level retail manager, and the posting asks for no fees, no sensitive data and no money handling.",
+      "evidence": [],
+      "title": "CENTER MANAGER",
+      "has_company_profile": true,
+      "router_score": 0.8301,
+      "tier": "tier1"
+    },
+    {
+      "job_id": "6522",
+      "gold": "fraud",
+      "label": "ALLOWED",
+      "sections": [],
+      "confidence": 0.95,
+      "rationale": "No section applies. The employer is named and described in a company profile, the pay ($23–28k) fits an entry-level driver, and the posting asks for no fees, no sensitive data and no money handling.",
+      "evidence": [],
+      "title": "VAN DRIVER",
+      "has_company_profile": true,
+      "router_score": 0.7735,
+      "tier": "tier1"
+    },
+    {
+      "job_id": "6566",
+      "gold": "fraud",
+      "label": "ALLOWED",
+      "sections": [],
+      "confidence": 0.95,
+      "rationale": "No section applies. The employer is named and described in detail, the duties are ordinary file-delivery trucking, and the pay is realistic for a full-time driver. The only gap is the missing salary, which is a weak signal.",
+      "evidence": [],
+      "title": "FILE DRIVER",
+      "has_company_profile": true,
+      "router_score": 0.7721,
+      "tier": "tier1"
+    },
+    {
+      "job_id": "7345",
+      "gold": "fraud",
+      "label": "ALLOWED",
+      "sections": [],
+      "confidence": 0.95,
+      "rationale": "No section applies. This is a senior engineering role at NETGEAR, an identified employer with a detailed company profile, and it has a realistic base-plus-bonus structure and a named recruiter contact. The only gap is the missing salary, which is a weak signal.",
+      "evidence": [],
+      "title": "Senior System Engineering Manager ",
+      "has_company_profile": true,
+      "router_score": 0.7884,
+      "tier": "tier1"
+    },
+    {
+      "job_id": "8250",
+      "gold": "fraud",
+      "label": "ALLOWED",
+      "sections": [],
+      "confidence": 0.95,
+      "rationale": "No section applies. This is a senior engineering role at a named, well-described employer (NETGEAR, Inc.) with a full company profile, and it has no payment requests, data harvesting, money handling or unrealistic pay. The only gap is the missing salary, which is a weak signal.",
+      "evidence": [],
+      "title": "Senior System Test Engineer",
+      "has_company_profile": true,
+      "router_score": 0.8237,
+      "tier": "tier1"
+    },
+    {
+      "job_id": "8433",
+      "gold": "fraud",
+      "label": "ALLOWED",
+      "sections": [],
+      "confidence": 0.95,
+      "rationale": "No section applies. This is a power plant operator role posted by a named staffing agency (Refined Resources) with a company profile, a named employer (Refined Resources) and a named referral bonus program. The only gap is the missing salary, which is a weak signal.",
+      "evidence": [],
+      "title": "Operator Mechanic 1 ",
+      "has_company_profile": true,
+      "router_score": 0.824,
+      "tier": "tier1"
+    },
+    {
+      "job_id": "8681",
+      "gold": "fraud",
+      "label": "ALLOWED",
+      "sections": [],
+      "confidence": 0.93,
+      "rationale": "No section applies. The employer is named and described, the duties are normal AR and collections work, and the pay is realistic for entry-level full-time work.",
+      "evidence": [],
+      "title": "Credit and Collections Clerk",
+      "has_company_profile": true,
+      "router_score": 0.8373,
+      "tier": "tier1"
+    },
+    {
+      "job_id": "8684",
+      "gold": "fraud",
+      "label": "ALLOWED",
+      "sections": [],
+      "confidence": 0.95,
+      "rationale": "No section applies. The employer is named and described in a company profile, the duties are ordinary payroll clerk work, and the only gaps are a missing salary and no screening questions.",
+      "evidence": [],
+      "title": "Payroll Clerk",
+      "has_company_profile": true,
+      "router_score": 0.8935,
+      "tier": "tier1"
+    },
+    {
+      "job_id": "9099",
+      "gold": "fraud",
+      "label": "ALLOWED",
+      "sections": [],
+      "confidence": 0.85,
+      "rationale": "No policy section matches: the posting asks for no fees, no sensitive data, no money handling, and no disproportionate pay. The employer is named and described with a company profile, and the missing salary is only a weak signal that cannot support a finding on its own, so the posting is ALLOWED.",
+      "evidence": [],
+      "title": "Restaurant Manager",
+      "has_company_profile": true,
+      "router_score": 0.7843,
+      "tier": "tier1"
+    },
+    {
+      "job_id": "9118",
+      "gold": "fraud",
+      "label": "ALLOWED",
+      "sections": [],
+      "confidence": 0.93,
+      "rationale": "No section applies. The employer is named and described in detail (Climate Corporation, hiring through a staffing agency), and the posting has no fees, data requests, money handling or unrealistic pay. The only gap is the missing salary, which is a weak signal.",
+      "evidence": [],
+      "title": "Business Operations Associate",
+      "has_company_profile": true,
+      "router_score": 0.7725,
+      "tier": "tier1"
+    },
+    {
+      "job_id": "10878",
+      "gold": "fraud",
+      "label": "ALLOWED",
+      "sections": [],
+      "confidence": 0.95,
+      "rationale": "No section applies. This is a detailed, realistic engineering role posted by a named employer with a company profile, and it has no payment requests, data harvesting, money handling or unrealistic pay. The only gap is the missing salary, which is a weak signal.",
+      "evidence": [],
+      "title": "Assembly & Test Engineer",
+      "has_company_profile": true,
+      "router_score": 0.9377,
+      "tier": "tier1"
+    },
+    {
+      "job_id": "10954",
+      "gold": "fraud",
+      "label": "ALLOWED",
+      "sections": [],
+      "confidence": 0.95,
+      "rationale": "No section applies. This is a named staffing agency (Aptitude Staffing Solutions) with a detailed company profile, and it has a named referral program and a named employer pairing program. The only gap is the missing salary, which is a weak signal.",
+      "evidence": [],
+      "title": "Recruitment & Talent Acquisition Professional",
+      "has_company_profile": true,
+      "router_score": 0.8172,
+      "tier": "tier1"
+    },
+    {
+      "job_id": "11549",
+      "gold": "fraud",
+      "label": "ALLOWED",
+      "sections": [],
+      "confidence": 0.95,
+      "rationale": "No section applies. This is a real-looking, detailed, and consistent engineering role posted by a named staffing agency (Aptitude Staffing Solutions) with a company profile, and it has no fees, no requests for sensitive data, no money handling and no unrealistic pay. The only gap is the missing salary, which is a weak signal.",
+      "evidence": [],
+      "title": "Mobile Developer-Back End ",
+      "has_company_profile": true,
+      "router_score": 0.8537,
+      "tier": "tier1"
+    },
+    {
+      "job_id": "11570",
+      "gold": "fraud",
+      "label": "ALLOWED",
+      "sections": [],
+      "confidence": 0.85,
+      "rationale": "No policy section matches: the posting asks for no fees, no sensitive data, no money handling, and no disproportionate pay. The employer is named and described with a company profile, and the missing salary is only a weak signal that cannot support a finding on its own, so the posting is ALLOWED.",
+      "evidence": [],
+      "title": "Technical Program Manager",
+      "has_company_profile": true,
+      "router_score": 0.6538,
+      "tier": "tier1"
+    },
+    {
+      "job_id": "11728",
+      "gold": "fraud",
+      "label": "ALLOWED",
+      "sections": [],
+      "confidence": 0.95,
+      "rationale": "No section applies. This is a senior IT role posted by a named staffing agency with a detailed company profile, and it has no payment requests, data harvesting, money handling or unrealistic pay. The only gap is the missing salary, which is a weak signal.",
+      "evidence": [],
+      "title": "Information Security Manager",
+      "has_company_profile": true,
+      "router_score": 0.8499,
+      "tier": "tier1"
+    },
+    {
+      "job_id": "11770",
+      "gold": "fraud",
+      "label": "ALLOWED",
+      "sections": [],
+      "confidence": 0.95,
+      "rationale": "No section applies. This is a detailed, realistic engineering role posted by a named staffing agency with a company profile, a plausible $12k–18k base salary, and a named recruiter contact. There are no fees, no requests for sensitive data and no money handling.",
+      "evidence": [],
+      "title": "Product Development Engineer PLC",
+      "has_company_profile": true,
+      "router_score": 0.9192,
+      "tier": "tier1"
+    },
+    {
+      "job_id": "13182",
+      "gold": "legit",
+      "label": "VIOLATING",
+      "sections": [
+        "§4",
+        "§5"
+      ],
+      "confidence": 0.722,
+      "rationale": "The posting matches §4 (personal-cost, personal-impact pattern) and §5 (no company profile and a generic, inconsistent description), and the combination makes it VIOLATING. No advance fee, data harvesting, money handling, or unrealistic pay is shown.",
+      "evidence": [
+        "It is essential for candidates to have reliable transportation as they will be required to serve clients within a 15 mile radius of their residence",
+        "Glossifly is Hiring! Glossifly is looking for Exceptionally Qualified Makeup Artists, Hair Stylists, Estheticians, and Massage Therapists"
+      ],
+      "title": "Make $32/hr to $88/hr All Professional Makeup Artists, Hair Stylists, Estheticians, and Massage Therapists",
+      "has_company_profile": false,
+      "router_score": 0.3538,
+      "tier": "tier1"
+    },
+    {
+      "job_id": "16863",
+      "gold": "fraud",
+      "label": "ALLOWED",
+      "sections": [],
+      "confidence": 0.93,
+      "rationale": "No section applies. The employer is named and described in a company profile, the role is a normal document-control job, and the posting has no fees, no requests for sensitive data, no money handling and no unrealistic pay. The only gap is the missing salary, which is a weak signal.",
+      "evidence": [],
+      "title": "Document Control Specialist",
+      "has_company_profile": true,
+      "router_score": 0.7459,
+      "tier": "tier1"
+    },
+    {
+      "job_id": "17636",
+      "gold": "fraud",
+      "label": "ALLOWED",
+      "sections": [],
+      "confidence": 0.95,
+      "rationale": "No section applies. The employer is named and described, the duties are normal data-entry and bin-movement work, and the pay is realistic for a full-time data entry role.",
+      "evidence": [],
+      "title": " Data Entry Representative",
+      "has_company_profile": true,
+      "router_score": 0.6496,
+      "tier": "tier1"
+    },
+    {
+      "job_id": "17718",
+      "gold": "fraud",
+      "label": "ALLOWED",
+      "sections": [],
+      "confidence": 0.93,
+      "rationale": "No section applies. The employer is named and described in a company profile, the role is a CSR and HOA management, and the posting has no fees, data requests, money handling or unrealistic pay. The only gap is the missing salary, which is a weak signal.",
+      "evidence": [],
+      "title": "CSR",
+      "has_company_profile": true,
+      "router_score": 0.8483,
+      "tier": "tier1"
+    },
+    {
+      "job_id": "17755",
+      "gold": "fraud",
+      "label": "ALLOWED",
+      "sections": [],
+      "confidence": 0.95,
+      "rationale": "No section applies. This is a full-time payroll admin role from a named, described employer (DRS Technologies, KY) with a realistic salary of $48–65k, and it has no fees, no requests for sensitive data and no money handling.",
+      "evidence": [],
+      "title": "Payroll Administrative Assistant",
+      "has_company_profile": true,
+      "router_score": 0.74,
+      "tier": "tier1"
+    },
+    {
+      "job_id": "17761",
+      "gold": "fraud",
+      "label": "ALLOWED",
+      "sections": [],
+      "confidence": 0.95,
+      "rationale": "No section applies. The employer is named and described, the pay is realistic for an entry-level full-time payroll clerk, and the posting has no fees, no requests for sensitive data and no money-handling duties.",
+      "evidence": [],
+      "title": "Payroll Clerk",
+      "has_company_profile": true,
+      "router_score": 0.7138,
+      "tier": "tier1"
+    },
+    {
+      "job_id": "17777",
+      "gold": "fraud",
+      "label": "ALLOWED",
+      "sections": [],
+      "confidence": 0.95,
+      "rationale": "No section applies. The employer is named and described in detail, the duties are ordinary administrative work, and the pay is realistic for an entry-level admin role.",
+      "evidence": [],
+      "title": "Administrative Assistant ",
+      "has_company_profile": true,
+      "router_score": 0.6692,
+      "tier": "tier1"
+    }
+  ]
+}

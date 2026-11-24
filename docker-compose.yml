@@ -1,0 +1,119 @@
+# Local stand-in for the AWS design (DESIGN.md §1, §6):
+#
+#   SQS + DLQ        -> elasticmq   (SQS API; same queues, visibility timeout, redrive)
+#   Aurora Postgres  -> postgres
+#   S3               -> seaweedfs   (S3 API)
+#   ECS API service  -> api         (enqueues only; EMBEDDED_WORKER=false)
+#   ECS workers      -> worker      (scale with: docker compose up --scale worker=4)
+#   CloudWatch       -> prometheus + grafana   (docker compose --profile observability up)
+#
+#   docker compose up --build          http://localhost:8000
+
+name: policy-labeler # fixed project name: containers and volumes do not depend on the folder name
+
+x-app: &app
+  build: {context: ., dockerfile: backend/Dockerfile}
+  image: policy-labeler-api:local
+  env_file:
+    - path: .env
+      required: false
+  environment: &app-env
+    DATABASE_URL: postgresql+psycopg://labeler:labeler@postgres:5432/labeler
+    QUEUE_BACKEND: sqs
+    SQS_ENDPOINT_URL: http://elasticmq:9324
+    STORAGE_BACKEND: s3
+    S3_ENDPOINT_URL: http://seaweedfs:8333
+    S3_BUCKET: labeler
+    AWS_REGION: us-east-1
+    AWS_ACCESS_KEY_ID: local # ElasticMQ and SeaweedFS accept any credentials
+    AWS_SECRET_ACCESS_KEY: local
+    EMBEDDED_WORKER: "false"
+  volumes:
+    - ./data:/app/data # dataset cache, router cache, legacy SQLite import
+
+services:
+  postgres:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_USER: labeler
+      POSTGRES_PASSWORD: labeler
+      POSTGRES_DB: labeler
+    ports: ["5432:5432"]
+    volumes: [pgdata:/var/lib/postgresql/data]
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U labeler -d labeler"]
+      interval: 2s
+      retries: 30
+
+  elasticmq:
+    image: softwaremill/elasticmq-native:1.6.11
+    ports: ["9324:9324", "9325:9325"] # 9325: ElasticMQ's queue browser UI
+    volumes: [./deploy/elasticmq.conf:/opt/elasticmq.conf:ro]
+
+  seaweedfs:
+    image: chrislusf/seaweedfs:3.80
+    command: server -dir=/data -s3 -s3.port=8333 -volume.max=0 -master.volumeSizeLimitMB=256
+    ports: ["8333:8333"]
+    volumes: [s3data:/data]
+    healthcheck: # the S3 gateway answers only once the store has loaded its volumes (slow after a restart)
+      test: ["CMD", "wget", "-q", "-O", "/dev/null", "http://127.0.0.1:8333/"]
+      interval: 3s
+      timeout: 3s
+      retries: 60
+      start_period: 10s
+
+  init: # migrate, load data, train + publish router, seed policy; exits
+    <<: *app
+    build: {context: ., dockerfile: worker/Dockerfile}
+    image: policy-labeler-worker:local
+    command: ["python", "-m", "scripts.init"]
+    restart: "no"
+    depends_on:
+      postgres: {condition: service_healthy}
+      seaweedfs: {condition: service_healthy}
+
+  api:
+    <<: *app
+    ports: ["8000:8000"]
+    depends_on:
+      init: {condition: service_completed_successfully}
+      elasticmq: {condition: service_started}
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8000/api/health')"]
+      interval: 5s
+      retries: 20
+
+  worker: # worker/: its own package and image (worker/Dockerfile), no UI, scaled independently
+    <<: *app
+    build: {context: ., dockerfile: worker/Dockerfile}
+    image: policy-labeler-worker:local
+    command: ["python", "-m", "labeler_worker"]
+    deploy: {replicas: 2}
+    stop_grace_period: 60s # SIGTERM: finish in-flight postings, leave the rest on the queue
+    depends_on:
+      init: {condition: service_completed_successfully}
+      elasticmq: {condition: service_started}
+
+  prometheus:
+    image: prom/prometheus:v3.1.0
+    profiles: [observability]
+    ports: ["9090:9090"]
+    volumes:
+      - ./deploy/prometheus.yml:/etc/prometheus/prometheus.yml:ro
+      - ./deploy/alerts.yml:/etc/prometheus/alerts.yml:ro
+
+  grafana:
+    image: grafana/grafana:11.4.0
+    profiles: [observability]
+    ports: ["3000:3000"]
+    environment:
+      GF_AUTH_ANONYMOUS_ENABLED: "true"
+      GF_AUTH_ANONYMOUS_ORG_ROLE: Viewer
+      GF_DASHBOARDS_DEFAULT_HOME_DASHBOARD_PATH: /var/lib/grafana/dashboards/labeler.json
+    volumes:
+      - ./deploy/grafana/provisioning:/etc/grafana/provisioning:ro
+      - ./deploy/grafana/dashboards:/var/lib/grafana/dashboards:ro
+
+volumes:
+  pgdata:
+  s3data:

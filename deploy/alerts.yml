@@ -1,0 +1,28 @@
+# The drift and health alarms of DESIGN.md §5, as Prometheus rules.
+groups:
+  - name: labeler
+    rules:
+      - alert: LiveQueueBacklog
+        expr: sum(labeler_queue_messages{queue="live",state="visible"}) > 500
+        for: 5m
+        annotations: {summary: "Live queue is backing up: the 60 s p95 target is at risk"}
+      - alert: QuoteRejectionRising
+        expr: >
+          sum(rate(labeler_quotes_total{outcome="rejected"}[30m]))
+          / clamp_min(sum(rate(labeler_quotes_total[30m])), 1e-9) > 0.05
+        for: 15m
+        annotations: {summary: "More than 5% of model quotes fail verification: model or input changed"}
+      - alert: EscalationRateHigh
+        expr: >
+          sum(rate(labeler_escalations_total[30m]))
+          / clamp_min(sum(rate(labeler_decisions_total[30m])), 1e-9) > 0.3
+        for: 30m
+        annotations: {summary: "Escalation above 30%: cost per posting is climbing"}
+      - alert: LabelingFailures
+        expr: sum(rate(labeler_decisions_total{tier="failed"}[10m])) > 0
+        for: 10m
+        annotations: {summary: "Postings are falling back to NEEDS_REVIEW because the model is failing"}
+      - alert: SlowDecisions
+        expr: histogram_quantile(0.95, sum by (le) (rate(labeler_decision_seconds_bucket[15m]))) > 60
+        for: 15m
+        annotations: {summary: "p95 decision time above 60 s"}

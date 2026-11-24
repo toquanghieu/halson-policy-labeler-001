@@ -1,0 +1,641 @@
+{
+  "tag": "slm-base",
+  "policy_version": "v1@slm-base",
+  "tier1": "qwen2.5-1.5b-base",
+  "tier2": null,
+  "metrics": {
+    "n": 400,
+    "n_scored": 400,
+    "confusion": {
+      "VIOLATING": {
+        "fraud": 0,
+        "legit": 1
+      },
+      "NEEDS_REVIEW": {
+        "fraud": 59,
+        "legit": 161
+      },
+      "ALLOWED": {
+        "fraud": 41,
+        "legit": 138
+      }
+    },
+    "strict": {
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1": 0.0,
+      "tp": 0,
+      "fp": 1,
+      "fn": 100
+    },
+    "flagged": {
+      "precision": 0.267,
+      "recall": 0.59,
+      "f1": 0.368,
+      "tp": 59,
+      "fp": 162,
+      "fn": 41
+    },
+    "review_rate": 0.55,
+    "sections": {
+      "§5": {
+        "fraud": 55,
+        "legit": 157
+      },
+      "§1": {
+        "fraud": 0,
+        "legit": 1
+      }
+    },
+    "tiers": {
+      "tier1": 398,
+      "failed": 2
+    },
+    "escalation_rate": 0.0,
+    "cost_per_1k_usd": 0.0,
+    "total_cost_usd": 0.0,
+    "latency_ms": {
+      "p50": 1547.4,
+      "p95": 2462.7,
+      "max": 4628.9
+    }
+  },
+  "router_only_baseline": {
+    "threshold": 0.5,
+    "strict": {
+      "precision": 0.823,
+      "recall": 0.93,
+      "f1": 0.873,
+      "tp": 93,
+      "fp": 20,
+      "fn": 7
+    },
+    "confusion": {
+      "VIOLATING": {
+        "fraud": 93,
+        "legit": 20
+      },
+      "NEEDS_REVIEW": {
+        "fraud": 0,
+        "legit": 0
+      },
+      "ALLOWED": {
+        "fraud": 7,
+        "legit": 280
+      }
+    }
+  },
+  "errors": [
+    {
+      "job_id": "662",
+      "gold": "fraud",
+      "label": "ALLOWED",
+      "sections": [],
+      "confidence": 0.535,
+      "rationale": "The posting lacks essential information to identify the employer, making it eligible for the NEEDS_REVIEW section.",
+      "evidence": [],
+      "title": "Director of Strategy",
+      "has_company_profile": true,
+      "router_score": 0.8509,
+      "tier": "tier1"
+    },
+    {
+      "job_id": "1205",
+      "gold": "fraud",
+      "label": "ALLOWED",
+      "sections": [],
+      "confidence": 0.297,
+      "rationale": "The posting lacks essential information to determine if it violates the policy, thus it is labeled NEEDS_REVIEW.",
+      "evidence": [],
+      "title": "Health + Environmental Professional",
+      "has_company_profile": true,
+      "router_score": 0.9113,
+      "tier": "tier1"
+    },
+    {
+      "job_id": "2274",
+      "gold": "fraud",
+      "label": "ALLOWED",
+      "sections": [],
+      "confidence": 0.595,
+      "rationale": "The absence of company profile, logo, and salary information is a strong signal that the employer cannot be identified, making the posting VIOLATING.",
+      "evidence": [],
+      "title": "Customer Service Representative",
+      "has_company_profile": true,
+      "router_score": 0.8835,
+      "tier": "tier1"
+    },
+    {
+      "job_id": "2278",
+      "gold": "fraud",
+      "label": "ALLOWED",
+      "sections": [],
+      "confidence": 0.595,
+      "rationale": "The employer profile is missing, making it impossible to verify the company's identity. This is a strong signal that the posting violates the policy.",
+      "evidence": [],
+      "title": "Food and Beverage Director",
+      "has_company_profile": false,
+      "router_score": 0.8655,
+      "tier": "tier1"
+    },
+    {
+      "job_id": "2408",
+      "gold": "fraud",
+      "label": "ALLOWED",
+      "sections": [],
+      "confidence": 0.565,
+      "rationale": "The posting does not provide any information that would typically be used to identify the employer, making it impossible to determine if the employer is identifiable.",
+      "evidence": [],
+      "title": "Director of Product Management",
+      "has_company_profile": true,
+      "router_score": 0.7509,
+      "tier": "tier1"
+    },
+    {
+      "job_id": "2978",
+      "gold": "fraud",
+      "label": "ALLOWED",
+      "sections": [],
+      "confidence": 0.595,
+      "rationale": "The employer profile is missing, making it impossible to verify the company's identity. This is a strong signal that the posting is not legitimate.",
+      "evidence": [],
+      "title": "Administrative Assistant/Customer Service",
+      "has_company_profile": false,
+      "router_score": 0.9164,
+      "tier": "tier1"
+    },
+    {
+      "job_id": "3327",
+      "gold": "fraud",
+      "label": "ALLOWED",
+      "sections": [],
+      "confidence": 0.535,
+      "rationale": "The posting lacks essential information to verify the employer's identity, making it impossible to decide whether it is a violation.",
+      "evidence": [],
+      "title": "Customer Assistant",
+      "has_company_profile": false,
+      "router_score": 0.6837,
+      "tier": "tier1"
+    },
+    {
+      "job_id": "4669",
+      "gold": "fraud",
+      "label": "ALLOWED",
+      "sections": [],
+      "confidence": 0.595,
+      "rationale": "The employer profile is generic and inconsistent, and the contact details do not match the stated company. This matches §5.",
+      "evidence": [],
+      "title": "Human Resource Director",
+      "has_company_profile": true,
+      "router_score": 0.7607,
+      "tier": "tier1"
+    },
+    {
+      "job_id": "4762",
+      "gold": "fraud",
+      "label": "ALLOWED",
+      "sections": [],
+      "confidence": 0.535,
+      "rationale": "The posting lacks essential information to determine if it violates the policy, thus it is labeled NEEDS_REVIEW.",
+      "evidence": [],
+      "title": "COMPANY REPRESENTATIVE NEEDED",
+      "has_company_profile": false,
+      "router_score": 0.6056,
+      "tier": "tier1"
+    },
+    {
+      "job_id": "5363",
+      "gold": "fraud",
+      "label": "ALLOWED",
+      "sections": [],
+      "confidence": 0.535,
+      "rationale": "The posting lacks essential information to determine if it violates the policy, thus it is labeled NEEDS_REVIEW.",
+      "evidence": [],
+      "title": "Licensed Life Insurance Agent",
+      "has_company_profile": false,
+      "router_score": 0.5043,
+      "tier": "tier1"
+    },
+    {
+      "job_id": "5689",
+      "gold": "fraud",
+      "label": "ALLOWED",
+      "sections": [],
+      "confidence": 0.535,
+      "rationale": "The posting lacks essential information to determine if it violates the policy, thus it is labeled NEEDS_REVIEW.",
+      "evidence": [],
+      "title": "Call Center Representative",
+      "has_company_profile": false,
+      "router_score": 0.8914,
+      "tier": "tier1"
+    },
+    {
+      "job_id": "6111",
+      "gold": "fraud",
+      "label": "ALLOWED",
+      "sections": [],
+      "confidence": 0.565,
+      "rationale": "The posting lacks essential information to verify the employer's identity, making it impossible to determine if the employer is identifiable.",
+      "evidence": [],
+      "title": "Data Entry",
+      "has_company_profile": false,
+      "router_score": 0.8197,
+      "tier": "tier1"
+    },
+    {
+      "job_id": "6485",
+      "gold": "fraud",
+      "label": "ALLOWED",
+      "sections": [],
+      "confidence": 0.595,
+      "rationale": "The employer profile is missing, the contact details are inconsistent, and the sensitive data requests are directed to off-platform channels.",
+      "evidence": [],
+      "title": "Cruise Staff Wanted *URGENT*",
+      "has_company_profile": false,
+      "router_score": 0.9102,
+      "tier": "tier1"
+    },
+    {
+      "job_id": "6696",
+      "gold": "fraud",
+      "label": "ALLOWED",
+      "sections": [],
+      "confidence": 0.595,
+      "rationale": "The employer profile is missing, the contact details are inconsistent, and the sensitive data requests are directed to off-platform channels.",
+      "evidence": [],
+      "title": "Cruise Staff Wanted *URGENT*",
+      "has_company_profile": false,
+      "router_score": 0.9102,
+      "tier": "tier1"
+    },
+    {
+      "job_id": "6697",
+      "gold": "fraud",
+      "label": "ALLOWED",
+      "sections": [],
+      "confidence": 0.595,
+      "rationale": "The employer profile is missing, the contact details are inconsistent, and the sensitive data requests are directed to off-platform channels.",
+      "evidence": [],
+      "title": "Cruise Staff Wanted *URGENT*",
+      "has_company_profile": false,
+      "router_score": 0.9102,
+      "tier": "tier1"
+    },
+    {
+      "job_id": "6882",
+      "gold": "fraud",
+      "label": "ALLOWED",
+      "sections": [],
+      "confidence": 0.297,
+      "rationale": "The posting lacks essential information to determine the employer's identity, making it impossible to decide whether it violates the policy.",
+      "evidence": [],
+      "title": "Contract Recruitment Specialist",
+      "has_company_profile": false,
+      "router_score": 0.5354,
+      "tier": "tier1"
+    },
+    {
+      "job_id": "7003",
+      "gold": "fraud",
+      "label": "ALLOWED",
+      "sections": [],
+      "confidence": 0.595,
+      "rationale": "The posting lacks critical information to identify the employer, making it impossible to decide whether it violates the policy.",
+      "evidence": [],
+      "title": "Project Engineer Molding   2020",
+      "has_company_profile": false,
+      "router_score": 0.8401,
+      "tier": "tier1"
+    },
+    {
+      "job_id": "7345",
+      "gold": "fraud",
+      "label": "ALLOWED",
+      "sections": [],
+      "confidence": 0.297,
+      "rationale": "The posting lacks essential information to determine if it violates the policy, thus it is labeled NEEDS_REVIEW.",
+      "evidence": [],
+      "title": "Senior System Engineering Manager ",
+      "has_company_profile": true,
+      "router_score": 0.7884,
+      "tier": "tier1"
+    },
+    {
+      "job_id": "7425",
+      "gold": "fraud",
+      "label": "ALLOWED",
+      "sections": [],
+      "confidence": 0.595,
+      "rationale": "The posting lacks essential information to verify the employer's identity, making it impossible to determine if the employer is legitimate.",
+      "evidence": [],
+      "title": "Mechanical Technician",
+      "has_company_profile": false,
+      "router_score": 0.9698,
+      "tier": "tier1"
+    },
+    {
+      "job_id": "7483",
+      "gold": "fraud",
+      "label": "ALLOWED",
+      "sections": [],
+      "confidence": 0.476,
+      "rationale": "The posting lacks critical information to identify the employer, making it a weak signal that further investigation is needed.",
+      "evidence": [],
+      "title": "Licensed Practical Nurse  ",
+      "has_company_profile": false,
+      "router_score": 0.8194,
+      "tier": "tier1"
+    },
+    {
+      "job_id": "8250",
+      "gold": "fraud",
+      "label": "ALLOWED",
+      "sections": [],
+      "confidence": 0.297,
+      "rationale": "The posting lacks essential information to determine if it violates the policy, thus it is labeled NEEDS_REVIEW.",
+      "evidence": [],
+      "title": "Senior System Test Engineer",
+      "has_company_profile": true,
+      "router_score": 0.8237,
+      "tier": "tier1"
+    },
+    {
+      "job_id": "8433",
+      "gold": "fraud",
+      "label": "ALLOWED",
+      "sections": [],
+      "confidence": 0.297,
+      "rationale": "The posting lacks essential information to determine if it violates the policy, thus it is labeled NEEDS_REVIEW.",
+      "evidence": [],
+      "title": "Operator Mechanic 1 ",
+      "has_company_profile": true,
+      "router_score": 0.824,
+      "tier": "tier1"
+    },
+    {
+      "job_id": "8681",
+      "gold": "fraud",
+      "label": "ALLOWED",
+      "sections": [],
+      "confidence": 0.535,
+      "rationale": "The posting lacks essential information to identify the employer, making it a candidate for NEEDS_REVIEW.",
+      "evidence": [],
+      "title": "Credit and Collections Clerk",
+      "has_company_profile": true,
+      "router_score": 0.8373,
+      "tier": "tier1"
+    },
+    {
+      "job_id": "9118",
+      "gold": "fraud",
+      "label": "ALLOWED",
+      "sections": [],
+      "confidence": 0.595,
+      "rationale": "The employer profile is missing, making it impossible to determine the employer's identity. This is a strong signal that the employer profile is missing, which is not allowed by the policy.",
+      "evidence": [],
+      "title": "Business Operations Associate",
+      "has_company_profile": true,
+      "router_score": 0.7725,
+      "tier": "tier1"
+    },
+    {
+      "job_id": "10878",
+      "gold": "fraud",
+      "label": "ALLOWED",
+      "sections": [],
+      "confidence": 0.595,
+      "rationale": "The employer profile is missing, making the posting a violation of the §5 policy.",
+      "evidence": [],
+      "title": "Assembly & Test Engineer",
+      "has_company_profile": true,
+      "router_score": 0.9377,
+      "tier": "tier1"
+    },
+    {
+      "job_id": "10954",
+      "gold": "fraud",
+      "label": "ALLOWED",
+      "sections": [],
+      "confidence": 0.535,
+      "rationale": "The posting does not provide any information that would typically be used to identify the employer, making it weak evidence for a VIOLATING section.",
+      "evidence": [],
+      "title": "Recruitment & Talent Acquisition Professional",
+      "has_company_profile": true,
+      "router_score": 0.8172,
+      "tier": "tier1"
+    },
+    {
+      "job_id": "11549",
+      "gold": "fraud",
+      "label": "ALLOWED",
+      "sections": [],
+      "confidence": 0.297,
+      "rationale": "The posting does not provide any information about the company's logo, salary, or other details that would typically be used to identify the employer. This alone is not sufficient to determine if the posting violates the policy.",
+      "evidence": [],
+      "title": "Mobile Developer-Back End ",
+      "has_company_profile": true,
+      "router_score": 0.8537,
+      "tier": "tier1"
+    },
+    {
+      "job_id": "11570",
+      "gold": "fraud",
+      "label": "ALLOWED",
+      "sections": [],
+      "confidence": 0.595,
+      "rationale": "The posting fails to provide any information about the employer's identity or contact details, which is a violation of the §5 policy.",
+      "evidence": [],
+      "title": "Technical Program Manager",
+      "has_company_profile": true,
+      "router_score": 0.6538,
+      "tier": "tier1"
+    },
+    {
+      "job_id": "11728",
+      "gold": "fraud",
+      "label": "ALLOWED",
+      "sections": [],
+      "confidence": 0.535,
+      "rationale": "The posting does not provide any information that would allow a senior analyst to determine if the employer is identifiable.",
+      "evidence": [],
+      "title": "Information Security Manager",
+      "has_company_profile": true,
+      "router_score": 0.8499,
+      "tier": "tier1"
+    },
+    {
+      "job_id": "11770",
+      "gold": "fraud",
+      "label": "ALLOWED",
+      "sections": [],
+      "confidence": 0.595,
+      "rationale": "The posting offers a competitive compensation package and highlights the company's global environment, which are strong signals that the posting is not violating the policy.",
+      "evidence": [],
+      "title": "Product Development Engineer PLC",
+      "has_company_profile": true,
+      "router_score": 0.9192,
+      "tier": "tier1"
+    },
+    {
+      "job_id": "14003",
+      "gold": "fraud",
+      "label": "ALLOWED",
+      "sections": [],
+      "confidence": 0.595,
+      "rationale": "The employer profile is missing, the contact details are inconsistent, and the sensitive data requests are directed to off-platform channels.",
+      "evidence": [],
+      "title": "Cruise Staff Wanted *URGENT*",
+      "has_company_profile": false,
+      "router_score": 0.9108,
+      "tier": "tier1"
+    },
+    {
+      "job_id": "14164",
+      "gold": "fraud",
+      "label": "ALLOWED",
+      "sections": [],
+      "confidence": 0.476,
+      "rationale": "The posting lacks essential information to verify the employer's identity, making it difficult to determine if it is a legitimate role.",
+      "evidence": [],
+      "title": "Vessel Coordinator",
+      "has_company_profile": false,
+      "router_score": 0.6474,
+      "tier": "tier1"
+    },
+    {
+      "job_id": "15806",
+      "gold": "legit",
+      "label": "VIOLATING",
+      "sections": [
+        "§1",
+        "§5"
+      ],
+      "confidence": 0.425,
+      "rationale": "The job description does not provide enough information to determine the employer's identity, making it impossible to decide whether the posting violates the policy.",
+      "evidence": [
+        "Are you someone who would love to work one-on-one with adults who experience all kinds of developmental disabilities?"
+      ],
+      "title": "Substitute Support Professional",
+      "has_company_profile": true,
+      "router_score": 0.1856,
+      "tier": "tier1"
+    },
+    {
+      "job_id": "16863",
+      "gold": "fraud",
+      "label": "ALLOWED",
+      "sections": [],
+      "confidence": 0.595,
+      "rationale": "The posting lacks critical information that would allow a senior analyst to determine its validity.",
+      "evidence": [],
+      "title": "Document Control Specialist",
+      "has_company_profile": true,
+      "router_score": 0.7459,
+      "tier": "tier1"
+    },
+    {
+      "job_id": "17595",
+      "gold": "fraud",
+      "label": "ALLOWED",
+      "sections": [],
+      "confidence": 0.595,
+      "rationale": "The posting lacks a company profile and consistent contact details, making it impossible to determine if the employer is identifiable.",
+      "evidence": [],
+      "title": "SAP BW Developer/Architect",
+      "has_company_profile": false,
+      "router_score": 0.6015,
+      "tier": "tier1"
+    },
+    {
+      "job_id": "17621",
+      "gold": "fraud",
+      "label": "ALLOWED",
+      "sections": [],
+      "confidence": 0.595,
+      "rationale": "The posting lacks essential information to verify the employer's identity, making it impossible to determine if the employer is legitimate. The absence of a company profile, logo, and salary information is a strong signal that the posting is not legitimate.",
+      "evidence": [],
+      "title": "Data Entry Admin/Clerical Positions - Work From Home",
+      "has_company_profile": false,
+      "router_score": 0.9561,
+      "tier": "tier1"
+    },
+    {
+      "job_id": "17629",
+      "gold": "fraud",
+      "label": "ALLOWED",
+      "sections": [],
+      "confidence": 0.595,
+      "rationale": "The employer profile is missing, the contact details are inconsistent, and the sensitive data requests are directed to off-platform channels.",
+      "evidence": [],
+      "title": "Cruise Staff Wanted *URGENT*",
+      "has_company_profile": false,
+      "router_score": 0.9102,
+      "tier": "tier1"
+    },
+    {
+      "job_id": "17670",
+      "gold": "fraud",
+      "label": "ALLOWED",
+      "sections": [],
+      "confidence": 0.595,
+      "rationale": "The posting lacks essential information to verify the employer's identity, making it impossible to determine if the employer is legitimate. The absence of a company profile, logo, and salary information is a strong signal that the posting is not legitimate.",
+      "evidence": [],
+      "title": "Data Entry Admin/Clerical Positions - Work From Home",
+      "has_company_profile": false,
+      "router_score": 0.9561,
+      "tier": "tier1"
+    },
+    {
+      "job_id": "17718",
+      "gold": "fraud",
+      "label": "ALLOWED",
+      "sections": [],
+      "confidence": 0.565,
+      "rationale": "The posting lacks critical information needed to identify the employer, making it difficult to determine if it is a legitimate role. The absence of company profile, logo, and salary information, combined with the absence of screening questions, strongly suggests that the posting is not for a legitimate role.",
+      "evidence": [],
+      "title": "CSR",
+      "has_company_profile": true,
+      "router_score": 0.8483,
+      "tier": "tier1"
+    },
+    {
+      "job_id": "17753",
+      "gold": "fraud",
+      "label": "ALLOWED",
+      "sections": [],
+      "confidence": 0.595,
+      "rationale": "The posting is missing critical information that would be used to verify the employer's identity and financial compensation, making it a violation of the policy.",
+      "evidence": [],
+      "title": " Medical Intake Representative (Data Entry)",
+      "has_company_profile": false,
+      "router_score": 0.7141,
+      "tier": "tier1"
+    },
+    {
+      "job_id": "17761",
+      "gold": "fraud",
+      "label": "ALLOWED",
+      "sections": [],
+      "confidence": 0.595,
+      "rationale": "The employer profile is missing, making it impossible to determine the employer's identity.",
+      "evidence": [],
+      "title": "Payroll Clerk",
+      "has_company_profile": true,
+      "router_score": 0.7138,
+      "tier": "tier1"
+    },
+    {
+      "job_id": "17792",
+      "gold": "fraud",
+      "label": "ALLOWED",
+      "sections": [],
+      "confidence": 0.595,
+      "rationale": "The posting lacks essential information to verify the employer's identity, making it impossible to determine if the employer is legitimate. The absence of a company profile, logo, and salary information is a strong signal that the posting is not legitimate.",
+      "evidence": [],
+      "title": "Data Entry Admin/Clerical Positions - Work From Home",
+      "has_company_profile": false,
+      "router_score": 0.9561,
+      "tier": "tier1"
+    }
+  ]
+}

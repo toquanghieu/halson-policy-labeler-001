@@ -1,0 +1,62 @@
+# Recruitment Fraud Policy — the system reads this at run time.
+# Nothing below is duplicated in code or prompts: section ids, their text, how
+# each one affects the label, and the edge-case guidance all come from here.
+#
+# effect:
+#   violating    -> a verified match makes the posting VIOLATING
+#   review_only  -> on its own, a verified match yields NEEDS_REVIEW;
+#                   combined with any other matched section the result is VIOLATING
+version: v1
+title: Recruitment Fraud Policy
+summary: >
+  A posting is labeled VIOLATING if it matches any section below. Otherwise it is
+  labeled ALLOWED. If the evidence is insufficient to decide, label it NEEDS_REVIEW.
+
+sections:
+  - id: "§1"
+    name: Advance fee / payment to apply
+    effect: violating
+    text: >
+      The applicant is asked to pay (training, equipment, background check,
+      "starter kit", visa processing) before or as a condition of being hired.
+
+  - id: "§2"
+    name: Personal / financial data harvesting
+    effect: violating
+    text: >
+      The posting asks for sensitive data (bank details, SSN/ID number, copies of
+      ID) at the application stage, or directs applicants to off-platform channels
+      (personal email, messaging apps) to "complete the application".
+
+  - id: "§3"
+    name: Money handling / reshipping
+    effect: violating
+    text: >
+      The role involves receiving and forwarding money, checks, gift cards, crypto
+      or packages on behalf of the employer ("payment processing agent",
+      "package inspector").
+
+  - id: "§4"
+    name: Unrealistic compensation
+    effect: violating
+    text: >
+      Pay is clearly disproportionate to the stated effort, skills or hours
+      (e.g. "$5,000/week, no experience, 2 hours a day").
+
+  - id: "§5"
+    name: Unverifiable employer
+    effect: review_only
+    text: >
+      The employer cannot be identified: no company profile, a generic or
+      inconsistent company description, or contact details that do not match the
+      stated company. On its own, §5 yields NEEDS_REVIEW, not VIOLATING, unless
+      combined with another section.
+
+# How matched sections combine: this many distinct matched sections make the posting VIOLATING,
+# whatever their effect (v1: "unless combined with another section"). null = only `violating` ones.
+combine_to_violating: 2
+
+edge_cases:
+  - Legitimate commission-only sales roles are ALLOWED if the compensation structure is stated plainly.
+  - Remote work alone is not a signal.
+  - Missing fields (no logo, no salary) are weak signals and must not be the sole basis for VIOLATING.

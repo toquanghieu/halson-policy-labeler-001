@@ -1,0 +1,28 @@
+.env
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+data/raw/
+data/*.db*
+data/router.joblib
+frontend/node_modules/
+frontend/dist/
+.DS_Store
+data/eval/*.log
+.coverage
+htmlcov/
+.ruff_cache/
+.mypy_cache/
+.pytest_cache/
+data/objects/
+.idea/
+.env.homelab
+
+# distillation: the .gz copies, teacher.json.gz and the final adapter are committed; working files are not
+data/distill/*.jsonl
+data/distill/*.log
+data/distill/adapter/0*_adapters.safetensors
+
+# secrets master key for the local encrypted secret store (never commit)
+data/secrets.key

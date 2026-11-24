@@ -1,0 +1,28 @@
+[project]
+name = "labeler-core"
+version = "0.1.0"
+description = "Shared domain and infrastructure: labeling agent, policy, evidence, DB, queue, storage, LLM providers, services"
+requires-python = ">=3.12"
+dependencies = [
+    "alembic>=1.14",
+    "anthropic>=2.12.0",
+    "boto3>=1.35",
+    "cryptography>=44",
+    "httpx>=0.28",
+    "joblib>=1.6.0",
+    "pandas>=3.1.1",
+    "prometheus-client>=0.21",
+    "psycopg[binary]>=3.2",
+    "pydantic>=2.14.4",
+    "pydantic-settings>=2.6",
+    "pyyaml>=6.0.4",
+    "scikit-learn>=1.9.1",
+    "sqlalchemy>=2.0.36",
+]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["labeler"]

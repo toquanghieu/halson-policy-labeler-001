@@ -1,0 +1,13 @@
+**/.venv
+**/node_modules
+**/__pycache__
+**/.pytest_cache
+frontend/dist
+data/raw
+data/*.db*
+data/router.joblib
+.git
+.env
+data/objects
+data/eval/*.log
+.idea

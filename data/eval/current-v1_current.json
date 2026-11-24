@@ -1,0 +1,475 @@
+{
+  "tag": "current",
+  "policy_version": "v1@current",
+  "tier1": "claude-haiku-5-5",
+  "tier2": "claude-opus-5-5",
+  "metrics": {
+    "n": 400,
+    "n_scored": 400,
+    "confusion": {
+      "VIOLATING": {
+        "fraud": 22,
+        "legit": 1
+      },
+      "NEEDS_REVIEW": {
+        "fraud": 51,
+        "legit": 89
+      },
+      "ALLOWED": {
+        "fraud": 27,
+        "legit": 210
+      }
+    },
+    "strict": {
+      "precision": 0.957,
+      "recall": 0.22,
+      "f1": 0.358,
+      "tp": 22,
+      "fp": 1,
+      "fn": 78
+    },
+    "flagged": {
+      "precision": 0.448,
+      "recall": 0.73,
+      "f1": 0.555,
+      "tp": 73,
+      "fp": 90,
+      "fn": 27
+    },
+    "review_rate": 0.35,
+    "sections": {
+      "§5": {
+        "fraud": 73,
+        "legit": 90
+      },
+      "§1": {
+        "fraud": 1,
+        "legit": 1
+      },
+      "§4": {
+        "fraud": 13,
+        "legit": 1
+      },
+      "§3": {
+        "fraud": 1,
+        "legit": 0
+      },
+      "§2": {
+        "fraud": 9,
+        "legit": 0
+      }
+    },
+    "tiers": {
+      "tier1": 346,
+      "tier2": 54
+    },
+    "escalation_rate": 0.135,
+    "cost_per_1k_usd": 3.3569,
+    "total_cost_usd": 1.3428,
+    "latency_ms": {
+      "p50": 5887.9,
+      "p95": 14311.4,
+      "max": 24228.5
+    }
+  },
+  "router_only_baseline": {
+    "threshold": 0.5,
+    "strict": {
+      "precision": 0.823,
+      "recall": 0.93,
+      "f1": 0.873,
+      "tp": 93,
+      "fp": 20,
+      "fn": 7
+    },
+    "confusion": {
+      "VIOLATING": {
+        "fraud": 93,
+        "legit": 20
+      },
+      "NEEDS_REVIEW": {
+        "fraud": 0,
+        "legit": 0
+      },
+      "ALLOWED": {
+        "fraud": 7,
+        "legit": 280
+      }
+    }
+  },
+  "errors": [
+    {
+      "job_id": "662",
+      "gold": "fraud",
+      "label": "ALLOWED",
+      "sections": [],
+      "confidence": 0.9,
+      "rationale": "This is an ordinary staffing-agency posting for a Director of Strategy role, and none of §1–§5 apply. There are no fees, no requests for sensitive data or off-platform contact, no money handling and no unrealistic pay. The agency has a full company profile, and the missing salary is only a weak signal.",
+      "evidence": [],
+      "title": "Director of Strategy",
+      "has_company_profile": true,
+      "router_score": 0.8509,
+      "tier": "tier2"
+    },
+    {
+      "job_id": "2137",
+      "gold": "fraud",
+      "label": "ALLOWED",
+      "sections": [],
+      "confidence": 0.93,
+      "rationale": "A standard engineering technician posting from an identified employer with a matching company profile; no fees, data requests, money handling or unrealistic pay, so no section applies.",
+      "evidence": [],
+      "title": "Electrical Technician III",
+      "has_company_profile": true,
+      "router_score": 0.9387,
+      "tier": "tier2"
+    },
+    {
+      "job_id": "2274",
+      "gold": "fraud",
+      "label": "ALLOWED",
+      "sections": [],
+      "confidence": 0.85,
+      "rationale": "No section applies. The posting asks for no fees and no sensitive data, involves no money handling, and offers a realistic $30k–50k salary for an entry-level role. The company profile is specific and identifies a real-looking employer, so §5 does not apply.",
+      "evidence": [],
+      "title": "Customer Service Representative",
+      "has_company_profile": true,
+      "router_score": 0.8835,
+      "tier": "tier2"
+    },
+    {
+      "job_id": "2408",
+      "gold": "fraud",
+      "label": "ALLOWED",
+      "sections": [],
+      "confidence": 0.88,
+      "rationale": "This is a standard staffing-agency posting for a director role, with a real company profile and realistic requirements. It shows no fee, data-harvesting, money-handling or pay red flags, so no section applies. The missing salary alone triggers nothing.",
+      "evidence": [],
+      "title": "Director of Product Management",
+      "has_company_profile": true,
+      "router_score": 0.7509,
+      "tier": "tier2"
+    },
+    {
+      "job_id": "2751",
+      "gold": "fraud",
+      "label": "ALLOWED",
+      "sections": [],
+      "confidence": 0.7,
+      "rationale": "No section matches: the posting asks for no fee, no sensitive data or off-platform application, involves no money or package handling, and has a detailed company profile. The Dallas location versus the Menasha, WI headquarters is a possible inconsistency, but it does not clearly show an unverifiable employer under §5.",
+      "evidence": [],
+      "title": "Administrative Assistant",
+      "has_company_profile": true,
+      "router_score": 0.4159,
+      "tier": "tier1"
+    },
+    {
+      "job_id": "3056",
+      "gold": "fraud",
+      "label": "ALLOWED",
+      "sections": [],
+      "confidence": 0.65,
+      "rationale": "No section applies: this is a detailed posting for a named employer (Puget Sound Energy, job #68922) with no fees, no data requests, no money handling and no unrealistic pay. The empty profile doesn't trigger §5 because the description clearly identifies the employer.",
+      "evidence": [],
+      "title": "Senior Local Government Affairs Representative",
+      "has_company_profile": false,
+      "router_score": 0.7505,
+      "tier": "tier2"
+    },
+    {
+      "job_id": "3174",
+      "gold": "legit",
+      "label": "VIOLATING",
+      "sections": [
+        "§1",
+        "§4",
+        "§5"
+      ],
+      "confidence": 0.7,
+      "rationale": "Sections §1 (required capital investment), §4 (unlimited income claims for part-time, no-experience work) and §5 (unnamed employer with a generic description) match, and §1 and §4 together make this posting VIOLATING. No §2 or §3 signals appear.",
+      "evidence": [
+        "starting your own business requires capital investment both initially and on an ongoing basis",
+        "Unlimited income potential / highly profitable",
+        "Serious income goal of $100k plus p.a",
+        "This business is suited to Sales professionals, Executives, Entrepreneurs, Retired business owners"
+      ],
+      "title": "Self Employed - Work from Home",
+      "has_company_profile": true,
+      "router_score": 0.4687,
+      "tier": "tier1"
+    },
+    {
+      "job_id": "4669",
+      "gold": "fraud",
+      "label": "ALLOWED",
+      "sections": [],
+      "confidence": 0.9,
+      "rationale": "No section applies: the posting is an ordinary HR Director role from a named company with a full profile, a modest stated salary, and no fees, data requests, off-platform contact or money handling.",
+      "evidence": [],
+      "title": "Human Resource Director",
+      "has_company_profile": true,
+      "router_score": 0.7607,
+      "tier": "tier2"
+    },
+    {
+      "job_id": "5445",
+      "gold": "fraud",
+      "label": "ALLOWED",
+      "sections": [],
+      "confidence": 0.93,
+      "rationale": "No section applies. This is a normal Executive Chef posting for a named hotel with a company profile, detailed duties and a reasonable salary of 65000-75000. It asks for no fees and no sensitive data, and it doesn't involve handling money.",
+      "evidence": [],
+      "title": "Executive Chef",
+      "has_company_profile": true,
+      "router_score": 0.8875,
+      "tier": "tier2"
+    },
+    {
+      "job_id": "6173",
+      "gold": "fraud",
+      "label": "ALLOWED",
+      "sections": [],
+      "confidence": 0.88,
+      "rationale": "No section applies. This is an ordinary dispatcher/logistics posting with a detailed, specific company profile. It asks for no fees or sensitive data, involves no money or package forwarding, and makes no pay claims; the missing salary is only a weak signal.",
+      "evidence": [],
+      "title": "Dispatcher",
+      "has_company_profile": true,
+      "router_score": 0.6062,
+      "tier": "tier2"
+    },
+    {
+      "job_id": "6501",
+      "gold": "fraud",
+      "label": "ALLOWED",
+      "sections": [],
+      "confidence": 0.9,
+      "rationale": "No section applies: this is a standard check-cashing/loan store manager role with a real company profile and reasonable pay; \"Social Security\" appears as a benefit, not a data request, and check cashing is normal store work, not reshipping.",
+      "evidence": [],
+      "title": "CENTER MANAGER",
+      "has_company_profile": true,
+      "router_score": 0.8301,
+      "tier": "tier2"
+    },
+    {
+      "job_id": "6522",
+      "gold": "fraud",
+      "label": "ALLOWED",
+      "sections": [],
+      "confidence": 0.9,
+      "rationale": "This looks like an ordinary Austin van driver job with a realistic salary, a company profile, and checks the employer runs itself. No section applies: nothing asks applicants to pay, hand over sensitive data or forward money or packages.",
+      "evidence": [],
+      "title": "VAN DRIVER",
+      "has_company_profile": true,
+      "router_score": 0.7735,
+      "tier": "tier2"
+    },
+    {
+      "job_id": "6566",
+      "gold": "fraud",
+      "label": "ALLOWED",
+      "sections": [],
+      "confidence": 0.93,
+      "rationale": "No section applies: the background check requires no payment, the salary is realistic for a full-time driver, there is no request for sensitive data and the employer is identified by a full company profile.",
+      "evidence": [],
+      "title": "FILE DRIVER",
+      "has_company_profile": true,
+      "router_score": 0.7721,
+      "tier": "tier2"
+    },
+    {
+      "job_id": "7345",
+      "gold": "fraud",
+      "label": "ALLOWED",
+      "sections": [],
+      "confidence": 0.88,
+      "rationale": "No section applies. NETGEAR is clearly identified with a detailed profile and a realistic senior engineering role, with no fees, data requests, money handling or unrealistic pay. The only gap is a missing salary, which is a weak signal and isn't covered by any section.",
+      "evidence": [],
+      "title": "Senior System Engineering Manager ",
+      "has_company_profile": true,
+      "router_score": 0.7884,
+      "tier": "tier2"
+    },
+    {
+      "job_id": "7425",
+      "gold": "fraud",
+      "label": "ALLOWED",
+      "sections": [],
+      "confidence": 0.72,
+      "rationale": "No section applies: there are no payment requests, data harvesting, money handling or unrealistic pay. The profile field is empty, but the description clearly and consistently names the employer as Aker Solutions, so §5 is not reported.",
+      "evidence": [],
+      "title": "Mechanical Technician",
+      "has_company_profile": false,
+      "router_score": 0.9698,
+      "tier": "tier2"
+    },
+    {
+      "job_id": "8250",
+      "gold": "fraud",
+      "label": "ALLOWED",
+      "sections": [],
+      "confidence": 0.93,
+      "rationale": "No sections apply: NETGEAR is clearly identified with a detailed, consistent profile. Applicants are told to apply on the posting, and there are no fees, data requests, money handling or unrealistic pay claims.",
+      "evidence": [],
+      "title": "Senior System Test Engineer",
+      "has_company_profile": true,
+      "router_score": 0.8237,
+      "tier": "tier2"
+    },
+    {
+      "job_id": "8433",
+      "gold": "fraud",
+      "label": "ALLOWED",
+      "sections": [],
+      "confidence": 0.93,
+      "rationale": "No section applies: a detailed, realistic power-plant operator role from an identified staffing firm (Refined Resources) with no fees, data requests, money handling or inflated pay. A missing salary alone is only a weak signal.",
+      "evidence": [],
+      "title": "Operator Mechanic 1 ",
+      "has_company_profile": true,
+      "router_score": 0.824,
+      "tier": "tier2"
+    },
+    {
+      "job_id": "9099",
+      "gold": "fraud",
+      "label": "ALLOWED",
+      "sections": [],
+      "confidence": 0.93,
+      "rationale": "This is a standard restaurant manager posting from a named, verifiable hotel with a detailed company profile. It does not ask for any fees or personal data, involves no money handling, and makes no pay claims, so no section applies. The missing salary is only a weak signal.",
+      "evidence": [],
+      "title": "Restaurant Manager",
+      "has_company_profile": true,
+      "router_score": 0.7843,
+      "tier": "tier2"
+    },
+    {
+      "job_id": "9118",
+      "gold": "fraud",
+      "label": "ALLOWED",
+      "sections": [],
+      "confidence": 0.9,
+      "rationale": "No section applies: a staffing-partner profile names Climate Corporation, consistent with a detailed, realistic insurance operations role, with no fees, data requests, money handling, or unrealistic pay. Missing salary alone is a weak signal.",
+      "evidence": [],
+      "title": "Business Operations Associate",
+      "has_company_profile": true,
+      "router_score": 0.7725,
+      "tier": "tier2"
+    },
+    {
+      "job_id": "10878",
+      "gold": "fraud",
+      "label": "ALLOWED",
+      "sections": [],
+      "confidence": 0.95,
+      "rationale": "No section applies. This is a detailed engineering posting from an identified company (Aker Solutions) that has a company profile. It shows no payment requests, data harvesting, money handling or unrealistic pay. The missing salary is only a weak signal, and none of the sections is based on it.",
+      "evidence": [],
+      "title": "Assembly & Test Engineer",
+      "has_company_profile": true,
+      "router_score": 0.9377,
+      "tier": "tier2"
+    },
+    {
+      "job_id": "10954",
+      "gold": "fraud",
+      "label": "ALLOWED",
+      "sections": [],
+      "confidence": 0.85,
+      "rationale": "No section applies. This is a commission-only recruiter role with the pay structure stated plainly (10%, 12% and 15% of the candidate's salary). It names a company with a profile and does not ask for fees, sensitive data, off-platform contact or money handling.",
+      "evidence": [],
+      "title": "Recruitment & Talent Acquisition Professional",
+      "has_company_profile": true,
+      "router_score": 0.8172,
+      "tier": "tier2"
+    },
+    {
+      "job_id": "11570",
+      "gold": "fraud",
+      "label": "ALLOWED",
+      "sections": [],
+      "confidence": 0.93,
+      "rationale": "No section applies. This is a standard Technical Program Manager posting with a real company profile (BrightEdge via a staffing partner), and it asks for no fees, no sensitive data and no off-platform contact. The pay is not unrealistic. The only gap is the missing salary, and the policy calls that a weak signal.",
+      "evidence": [],
+      "title": "Technical Program Manager",
+      "has_company_profile": true,
+      "router_score": 0.6538,
+      "tier": "tier2"
+    },
+    {
+      "job_id": "16863",
+      "gold": "fraud",
+      "label": "ALLOWED",
+      "sections": [],
+      "confidence": 0.93,
+      "rationale": "None of the sections apply. This is a standard GMP document control role with realistic requirements, and the company has a specific profile. It asks for no fees, no sensitive personal data and no off-platform contact, and the role involves no money handling. The only gap is a missing salary, which on its own is a weak signal.",
+      "evidence": [],
+      "title": "Document Control Specialist",
+      "has_company_profile": true,
+      "router_score": 0.7459,
+      "tier": "tier2"
+    },
+    {
+      "job_id": "17608",
+      "gold": "fraud",
+      "label": "ALLOWED",
+      "sections": [],
+      "confidence": 0.75,
+      "rationale": "No section applies. The posting names a specific employer (Washington Adventist Hospital, Takoma Park, MD) and shows no fees, data harvesting, money handling or unrealistic pay, so the empty profile does not trigger §5.",
+      "evidence": [],
+      "title": "OR Specialty Coordinator",
+      "has_company_profile": false,
+      "router_score": 0.6847,
+      "tier": "tier2"
+    },
+    {
+      "job_id": "17718",
+      "gold": "fraud",
+      "label": "ALLOWED",
+      "sections": [],
+      "confidence": 0.85,
+      "rationale": "No section applies: the posting is sparse but has a specific, identifiable company profile and no fee, data-harvesting, money-handling or pay red flags.",
+      "evidence": [],
+      "title": "CSR",
+      "has_company_profile": true,
+      "router_score": 0.8483,
+      "tier": "tier2"
+    },
+    {
+      "job_id": "17755",
+      "gold": "fraud",
+      "label": "ALLOWED",
+      "sections": [],
+      "confidence": 0.93,
+      "rationale": "No section applies: an ordinary payroll assistant role with a full, consistent DRS Technologies company profile, plausible salary ($48k–65k), and no fees, data requests, or money-forwarding duties.",
+      "evidence": [],
+      "title": "Payroll Administrative Assistant",
+      "has_company_profile": true,
+      "router_score": 0.74,
+      "tier": "tier2"
+    },
+    {
+      "job_id": "17761",
+      "gold": "fraud",
+      "label": "ALLOWED",
+      "sections": [],
+      "confidence": 0.92,
+      "rationale": "No section applies. This is an ordinary payroll clerk posting from a named company with a detailed profile and a plausible salary, and \"cutting checks\" is a normal payroll task, not reshipping money (§3). The missing logo is not something §5 lists.",
+      "evidence": [],
+      "title": "Payroll Clerk",
+      "has_company_profile": true,
+      "router_score": 0.7138,
+      "tier": "tier2"
+    },
+    {
+      "job_id": "17777",
+      "gold": "fraud",
+      "label": "ALLOWED",
+      "sections": [],
+      "confidence": 0.85,
+      "rationale": "No section applies: an ordinary admin role with realistic $12/hr pay, no fees, no requests for sensitive data, no money handling, and a specific company profile (Hascor). The 'Media Production' industry tag is a minor metadata mismatch.",
+      "evidence": [],
+      "title": "Administrative Assistant ",
+      "has_company_profile": true,
+      "router_score": 0.6692,
+      "tier": "tier2"
+    }
+  ]
+}

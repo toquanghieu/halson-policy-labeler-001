@@ -1,0 +1,20 @@
+[project]
+name = "labeler-api"
+version = "0.1.0"
+description = "HTTP API and analyst UI host (FastAPI); enqueues work, never labels in-request except POST /api/postings"
+requires-python = ">=3.12"
+dependencies = [
+    "labeler-core",
+    "fastapi>=0.165.0",
+    "uvicorn[standard]>=0.54.0",
+]
+
+[tool.uv.sources]
+labeler-core = { workspace = true }
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["labeler_api"]
